@@ -22,6 +22,9 @@ class HashTable:
 
     def __init__(self, capacity):
         # Your code here
+        self.capacity = capacity
+        self.buckets = [None] * 10
+        print('buckets-----', self.buckets)
 
 
     def get_num_slots(self):
@@ -46,7 +49,7 @@ class HashTable:
         # Your code here
 
 
-    def fnv1(self, key):
+    def fnv1(self, key): # This one, or ------------------------------------
         """
         FNV-1 Hash, 64-bit
 
@@ -56,24 +59,30 @@ class HashTable:
         # Your code here
 
 
-    def djb2(self, key):
+    def djb2(self, key): # This one --------------------------------------
         """
         DJB2 hash, 32-bit
 
         Implement this, and/or FNV-1.
         """
         # Your code here
+        hash = 5381
+        for x in key:
+            hash = (( hash << 5) + hash) + ord(x)
+        return hash & 0xFFFFFFFF
 
 
-    def hash_index(self, key):
+
+    def hash_index(self, key): # -------------------------------------------------
         """
         Take an arbitrary key and return a valid integer index
         between within the storage capacity of the hash table.
         """
         #return self.fnv1(key) % self.capacity
+        # print('hash index', self.djb2(key) % self.capacity)
         return self.djb2(key) % self.capacity
 
-    def put(self, key, value):
+    def put(self, key, value): # ------------------------------------------
         """
         Store the value with the given key.
 
@@ -84,7 +93,8 @@ class HashTable:
         # Your code here
 
 
-    def delete(self, key):
+
+    def delete(self, key): # --------------------------------------------------
         """
         Remove the value stored with the given key.
 
@@ -95,7 +105,7 @@ class HashTable:
         # Your code here
 
 
-    def get(self, key):
+    def get(self, key): # ---------------------------------------------------
         """
         Retrieve the value stored with the given key.
 
@@ -141,7 +151,7 @@ if __name__ == "__main__":
 
     # Test resizing
     old_capacity = ht.get_num_slots()
-    ht.resize(ht.capacity * 2)
+    # ht.resize(ht.capacity * 2)
     new_capacity = ht.get_num_slots()
 
     print(f"\nResized from {old_capacity} to {new_capacity}.\n")
@@ -151,3 +161,7 @@ if __name__ == "__main__":
         print(ht.get(f"line_{i}"))
 
     print("")
+
+    x = HashTable(10)
+
+    print('x', x.hash_index('wt'))
