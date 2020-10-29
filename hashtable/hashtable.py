@@ -23,8 +23,11 @@ class HashTable:
     def __init__(self, capacity):
         # Your code here
         self.capacity = capacity
-        self.buckets = [None] * 10
-        print('buckets-----', self.buckets)
+        self.buckets = [None] * capacity
+
+    def details(self):
+        print(self.buckets)
+        # return self.buckets
 
 
     def get_num_slots(self):
@@ -76,7 +79,7 @@ class HashTable:
     def hash_index(self, key): # -------------------------------------------------
         """
         Take an arbitrary key and return a valid integer index
-        between within the storage capacity of the hash table.
+        between within the bucket capacity of the hash table.
         """
         #return self.fnv1(key) % self.capacity
         # print('hash index', self.djb2(key) % self.capacity)
@@ -91,7 +94,20 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        # index = self.hash_index(key)
+        # self.buckets[index] = HashTableEntry(key, value)
+        # self.buckets[index] = 'soemthing'
+        self.buckets[self.hash_index(key)] = value
+        
+        # current = self.bucket[index].find(key)
+        # if current is not None: 
+        #     current.value = value
+        # else:
+        #     self.bucket[index].insert_at_head(HashTableEntry(key, value))
+        #     self.load += 1
 
+
+        # self.buckets[self.hash_index(key)] = value
 
 
     def delete(self, key): # --------------------------------------------------
@@ -103,6 +119,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        self.buckets[self.hash_index(key)] = None
 
 
     def get(self, key): # ---------------------------------------------------
@@ -114,6 +131,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        return self.buckets[self.hash_index(key)]
 
 
     def resize(self, new_capacity):
@@ -164,4 +182,16 @@ if __name__ == "__main__":
 
     x = HashTable(10)
 
-    print('x', x.hash_index('wt'))
+    x.put('soo', 'wack!')
+    x.put('ha', 'way wack!')
+    x.put('unsure', 'the wackness is back')
+    x.put('yet', 'another wacker')
+    
+    print('')
+    # print('line 190', ht.details())
+    print('')
+    x.details()
+    x.delete('yet')
+    x.details()
+    print('get line 196', x.get('soo'))
+    print('get line 197', x.get('ha'))
