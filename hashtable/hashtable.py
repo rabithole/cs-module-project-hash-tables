@@ -1,3 +1,5 @@
+from my_linked_list import *
+
 class HashTableEntry:
     """
     Linked List hash table key/value pair
@@ -7,6 +9,9 @@ class HashTableEntry:
         self.value = value
         self.next = None
 
+    def __repr__(self):
+        return f'Yes, HashTableEntry({self.key}, {self.value})'
+
 
 # Hash table can't have fewer than this many slots
 MIN_CAPACITY = 8
@@ -14,7 +19,7 @@ MIN_CAPACITY = 8
 
 class HashTable:
     """
-    A hash table that with `capacity` buckets
+    A hash table that with `capacity` array
     that accepts string keys
 
     Implement this.
@@ -23,11 +28,7 @@ class HashTable:
     def __init__(self, capacity):
         # Your code here
         self.capacity = capacity
-        self.buckets = [None] * capacity
-
-    def details(self):
-        print(self.buckets)
-        # return self.buckets
+        self.array = [None] * capacity
 
 
     def get_num_slots(self):
@@ -41,6 +42,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
+        return len(self.array)
 
 
     def get_load_factor(self):
@@ -94,20 +96,22 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        # index = self.hash_index(key)
-        # self.buckets[index] = HashTableEntry(key, value)
-        # self.buckets[index] = 'soemthing'
-        self.buckets[self.hash_index(key)] = value
-        
-        # current = self.bucket[index].find(key)
-        # if current is not None: 
-        #     current.value = value
+        index = self.hash_index(key)
+        # self.array[index] = value
+        # print('This is some value', value)
+
+        # new_node = HashTableEntry
+
+        # If there is None, create a linked list with a hash table entry at index of array if the index has nothing. 
+        if self.array[index] is None:
+            self.array[index] = LinkedList()
+            self.array[index].add_to_tail(HashTableEntry(index, value))
+            print('line 109', repr(HashTableEntry(index, value)))
         # else:
-        #     self.bucket[index].insert_at_head(HashTableEntry(key, value))
-        #     self.load += 1
+        #     cur = self.array[index]
+        #     while True:
+        #         if cur.
 
-
-        # self.buckets[self.hash_index(key)] = value
 
 
     def delete(self, key): # --------------------------------------------------
@@ -119,7 +123,13 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        self.buckets[self.hash_index(key)] = None
+        self.array[self.hash_index(key)] = None
+
+        # Lecture code
+        # value = self.table[self.hash_index(key)]
+        # if value == None:
+        #     print('value is already None')
+        # self.table[self.hash_index(key)] = None
 
 
     def get(self, key): # ---------------------------------------------------
@@ -131,7 +141,7 @@ class HashTable:
         Implement this.
         """
         # Your code here
-        return self.buckets[self.hash_index(key)]
+        return self.array[self.hash_index(key)]
 
 
     def resize(self, new_capacity):
@@ -142,6 +152,11 @@ class HashTable:
         Implement this.
         """
         # Your code here
+
+
+    def details(self):
+        print('The details', self.array)
+        # return self.array
 
 
 
@@ -188,10 +203,24 @@ if __name__ == "__main__":
     x.put('yet', 'another wacker')
     
     print('')
+    print(repr(HashTableEntry('bot', 'whack')))
     # print('line 190', ht.details())
+    # print('')
+    # x.details()
     print('')
+    # x.delete('yet')
     x.details()
-    x.delete('yet')
-    x.details()
+    print('')
     print('get line 196', x.get('soo'))
     print('get line 197', x.get('ha'))
+
+    # dl = LinkedList()
+
+    # dl.add_to_tail(1)
+    # dl.add_to_tail(5)
+    # dl.add_to_tail(4500)
+    # dl.add_to_tail(50)
+    # dl.add_to_tail(40)
+    # dl.add_to_tail(HashTableEntry.value)
+
+    # dl.printList()
