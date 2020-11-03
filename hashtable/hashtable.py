@@ -30,6 +30,9 @@ class HashTable:
         self.capacity = capacity
         self.array = [None] * capacity
 
+    def __repr__(self):
+        return f'Yes, HashTable({self.array}, {self.capacity})'
+
 
     def get_num_slots(self):
         """
@@ -89,13 +92,13 @@ class HashTable:
 
     def put(self, key, value): # ------------------------------------------
         """
-        Store the value with the given key.
-
         Hash collisions should be handled with Linked List Chaining.
-
-        Implement this.
         """
-        # Your code here
+        # steps for a put ------------------------------------------
+        ## hash the key to a value for the index
+        ## Search linked list to see if the key already exists
+        ##  if the key exists, replace the value
+        ##  if not, create a new hash table entry
         index = self.hash_index(key)
         # self.array[index] = value
         # print('This is some value', value)
@@ -103,15 +106,13 @@ class HashTable:
         # new_node = HashTableEntry
 
         # If there is None, create a linked list with a hash table entry at index of array if the index has nothing. 
-        if self.array[index] is None:
+        if self.array[index] == None:
             self.array[index] = LinkedList()
             self.array[index].add_to_tail(HashTableEntry(index, value))
-            print('line 109', repr(HashTableEntry(index, value)))
-        # else:
-        #     cur = self.array[index]
-        #     while True:
-        #         if cur.
-
+        elif self.array[index]:
+            self.array[index].add_to_tail(HashTableEntry(index, value))
+            print('Does it exist', self.array[index].contains(key))
+        
 
 
     def delete(self, key): # --------------------------------------------------
@@ -125,12 +126,14 @@ class HashTable:
         # Your code here
         self.array[self.hash_index(key)] = None
 
+        # if self.array[index] == True:
+
+
         # Lecture code
         # value = self.table[self.hash_index(key)]
         # if value == None:
         #     print('value is already None')
         # self.table[self.hash_index(key)] = None
-
 
     def get(self, key): # ---------------------------------------------------
         """
@@ -201,26 +204,7 @@ if __name__ == "__main__":
     x.put('ha', 'way wack!')
     x.put('unsure', 'the wackness is back')
     x.put('yet', 'another wacker')
+    x.put('yet', 'another wacker ducky')
     
-    print('')
-    print(repr(HashTableEntry('bot', 'whack')))
-    # print('line 190', ht.details())
-    # print('')
-    # x.details()
-    print('')
-    # x.delete('yet')
-    x.details()
-    print('')
-    print('get line 196', x.get('soo'))
-    print('get line 197', x.get('ha'))
-
-    # dl = LinkedList()
-
-    # dl.add_to_tail(1)
-    # dl.add_to_tail(5)
-    # dl.add_to_tail(4500)
-    # dl.add_to_tail(50)
-    # dl.add_to_tail(40)
-    # dl.add_to_tail(HashTableEntry.value)
-
-    # dl.printList()
+    # print(repr())
+    x.get('soo')

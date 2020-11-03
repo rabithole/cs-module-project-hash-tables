@@ -118,6 +118,16 @@ class LinkedList:
     def contains(self, value):
         if not self.head:
             return False
+        current = self.head
+    # check to see if we're at a valid node 
+        while current:
+      # return True if the current value we're looking at matches our target value
+            if current.get_value() == value:
+                return True
+      # update our current node to the current node's next node
+            current = current.get_next()
+    # if we've gotten here, then the target node isn't in our list
+        return False
 
     def get_max(self):
       if not self.head: 
@@ -135,12 +145,14 @@ class LinkedList:
             print(self.head.value)
             self.head = self.head.next_node
 
-# ll = LinkedList()
+ll = LinkedList()
 
-# ll.add_to_tail(1)
-# ll.add_to_tail(5)
-# ll.add_to_tail(50)
-# ll.add_to_tail(40)
-# ll.add_to_tail(20)
+ll.add_to_tail(1)
+ll.add_to_tail(5)
+ll.add_to_tail(50)
+ll.add_to_tail(40)
+ll.add_to_tail(20)
+
+print(ll.contains(41))
 
 # ll.printList()
