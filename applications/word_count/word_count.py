@@ -1,5 +1,11 @@
+str = "Hello, my cat. And my cat doesn't say 'hello' back!"
+
+res = len(str.split())
+print(str, 'length', res)
+
 def word_count(s):
     # Your code here
+    pass
 
 
 
